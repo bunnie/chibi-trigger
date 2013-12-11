@@ -1,0 +1,44 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.52</VERSION>
+ <DEVICE>"ATtiny5"</DEVICE>
+ <WORKING_DIR>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.39.1005\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.39.1005\avrassembler\Include\tn5def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\Debug/chibi-trigger.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>chibi-trigger.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>chibi-trigger.map</FILE>
+  <FILE>chibi-trigger.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <RESET><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>124</LINE></RESET>
+  <INT0_HANDLER><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>52</LINE></INT0_HANDLER>
+  <PCINT0_HANDLER><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>53</LINE></PCINT0_HANDLER>
+  <TIM0_CAPT><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>54</LINE></TIM0_CAPT>
+  <TIM0_OVF><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>74</LINE></TIM0_OVF>
+  <TIM0_COMPA><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>55</LINE></TIM0_COMPA>
+  <TIM0_COMPB><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>56</LINE></TIM0_COMPB>
+  <ANA_COMP><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>57</LINE></ANA_COMP>
+  <WDT><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>58</LINE></WDT>
+  <VLM><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>59</LINE></VLM>
+  <ADC_HANDLER><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>60</LINE></ADC_HANDLER>
+  <clearLED><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>86</LINE></clearLED>
+  <onwards><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>89</LINE></onwards>
+  <avg_sum><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>97</LINE></avg_sum>
+  <forever><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>167</LINE></forever>
+  <poll><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>171</LINE></poll>
+  <skip_satpos><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>184</LINE></skip_satpos>
+  <skip_satneg><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>190</LINE></skip_satneg>
+  <setOutput><FILE>F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm</FILE><LINE>200</LINE></setOutput>
+ </LABELS>
+</ASSEMBLER_INFO>

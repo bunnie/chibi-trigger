@@ -1,0 +1,722 @@
+
+AVRASM ver. 2.1.52  F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm Wed Dec 11 18:34:23 2013
+
+[builtin](2): Including file 'C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.39.1005\avrassembler\Include\tn5def.inc'
+F:\largework\sources\chibitronics\chibi-trigger\chibi-trigger\chibi-trigger.asm(9): Including file 'C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.39.1005\avrassembler\Include\tn5def.inc'
+                 
+                 /*
+                 
+                 ;***** Created: 2011-02-09 12:04 ******* Source: ATtiny5.xml *************
+                 ;*************************************************************************
+                 ;* A P P L I C A T I O N   N O T E   F O R   T H E   A V R   F A M I L Y
+                 ;* 
+                 ;* Number            : AVR000
+                 ;* File Name         : "tn5def.inc"
+                 ;* Title             : Register/Bit Definitions for the ATtiny5
+                 ;* Date              : 2011-02-09
+                 ;* Version           : 2.35
+                 ;* Support E-mail    : avr@atmel.com
+                 ;* Target MCU        : ATtiny5
+                 ;* 
+                 ;* DESCRIPTION
+                 ;* When including this file in the assembly program file, all I/O register 
+                 ;* names and I/O register bit names appearing in the data book can be used.
+                 ;* In addition, the six registers forming the three data pointers X, Y and 
+                 ;* Z have been assigned names XL - ZH. Highest RAM address for Internal 
+                 ;* SRAM is also defined 
+                 ;* 
+                 ;* The Register names are represented by their hexadecimal address.
+                 ;* 
+                 ;* The Register Bit names are represented by their bit number (0-7).
+                 ;* 
+                 ;* Please observe the difference in using the bit names with instructions
+                 ;* such as "sbr"/"cbr" (set/clear bit in register) and "sbrs"/"sbrc"
+                 ;* (skip if bit in register set/cleared). The following example illustrates
+                 ;* this:
+                 ;* 
+                 ;* in    r16,PORTB             ;read PORTB latch
+                 ;* sbr   r16,(1<<PB6)+(1<<PB5) ;set PB6 and PB5 (use masks, not bit#)
+                 ;* out   PORTB,r16             ;output to PORTB
+                 ;* 
+                 ;* in    r16,TIFR              ;read the Timer Interrupt Flag Register
+                 ;* sbrc  r16,TOV0              ;test the overflow flag (use bit#)
+                 ;* rjmp  TOV0_is_set           ;jump if set
+                 ;* ...                         ;otherwise do something else
+                 ;*************************************************************************
+                 
+                 #ifndef _TN5DEF_INC_
+                 #define _TN5DEF_INC_
+                 
+                 
+                 #pragma partinc 0
+                 
+                 ; ***** SPECIFY DEVICE ***************************************************
+                 .device ATtiny5
+                 #pragma AVRPART ADMIN PART_NAME ATtiny5
+                 .equ	SIGNATURE_000	= 0x1e
+                 .equ	SIGNATURE_001	= 0x8f
+                 .equ	SIGNATURE_002	= 0x09
+                 
+                 #pragma AVRPART CORE CORE_VERSION AVR8L_0
+                 
+                 
+                 ; ***** I/O REGISTER DEFINITIONS *****************************************
+                 ; NOTE:
+                 ; Definitions marked "MEMORY MAPPED"are extended I/O ports
+                 ; and cannot be used with IN/OUT instructions
+                 .equ	SREG	= 0x3f
+                 .equ	SPL	= 0x3d
+                 .equ	SPH	= 0x3e
+                 .equ	CCP	= 0x3c
+                 .equ	RSTFLR	= 0x3b
+                 .equ	SMCR	= 0x3a
+                 .equ	OSCCAL	= 0x39
+                 .equ	CLKMSR	= 0x37
+                 .equ	CLKPSR	= 0x36
+                 .equ	PRR	= 0x35
+                 .equ	VLMCSR	= 0x34
+                 .equ	NVMCMD	= 0x33
+                 .equ	NVMCSR	= 0x32
+                 .equ	WDTCSR	= 0x31
+                 .equ	GTCCR	= 0x2f
+                 .equ	TCCR0A	= 0x2e
+                 .equ	TCCR0B	= 0x2d
+                 .equ	TCCR0C	= 0x2c
+                 .equ	TIMSK0	= 0x2b
+                 .equ	TIFR0	= 0x2a
+                 .equ	TCNT0L	= 0x28
+                 .equ	TCNT0H	= 0x29
+                 .equ	OCR0AL	= 0x26
+                 .equ	OCR0AH	= 0x27
+                 .equ	OCR0BL	= 0x24
+                 .equ	OCR0BH	= 0x25
+                 .equ	ICR0L	= 0x22
+                 .equ	ICR0H	= 0x23
+                 .equ	ACSR	= 0x1f
+                 .equ	ADCSRA	= 0x1d
+                 .equ	ADCSRB	= 0x1c
+                 .equ	ADMUX	= 0x1b
+                 .equ	ADCL	= 0x19
+                 .equ	DIDR0	= 0x17
+                 .equ	EICRA	= 0x15
+                 .equ	EIFR	= 0x14
+                 .equ	EIMSK	= 0x13
+                 .equ	PCICR	= 0x12
+                 .equ	PCIFR	= 0x11
+                 .equ	PCMSK	= 0x10
+                 .equ	PORTCR	= 0x0c
+                 .equ	PUEB	= 0x03
+                 .equ	PORTB	= 0x02
+                 .equ	DDRB	= 0x01
+                 .equ	PINB	= 0x00
+                 
+                 
+                 ; ***** BIT DEFINITIONS **************************************************
+                 
+                 ; ***** AD_CONVERTER *****************
+                 ; ADMUX - The ADC multiplexer Selection Register
+                 .equ	MUX0	= 0	; Analog Channel Selection Bits
+                 .equ	MUX1	= 1	; Analog Channel Selection Bits
+                 
+                 ; ADCSRA - The ADC Control and Status register A
+                 .equ	ADPS0	= 0	; ADC  Prescaler Select Bits
+                 .equ	ADPS1	= 1	; ADC  Prescaler Select Bits
+                 .equ	ADPS2	= 2	; ADC  Prescaler Select Bits
+                 .equ	ADIE	= 3	; ADC Interrupt Enable
+                 .equ	ADIF	= 4	; ADC Interrupt Flag
+                 .equ	ADATE	= 5	; ADC  Auto Trigger Enable
+                 .equ	ADSC	= 6	; ADC Start Conversion
+                 .equ	ADEN	= 7	; ADC Enable
+                 
+                 ; ADCSRB - The ADC Control and Status register B
+                 .equ	ADTS0	= 0	; ADC Auto Trigger Source bit 0
+                 .equ	ADTS1	= 1	; ADC Auto Trigger Source bit 1
+                 .equ	ADTS2	= 2	; ADC Auto Trigger Source bit 2
+                 
+                 ; ADCL - ADC Data Register
+                 .equ	ADC0	= 0	; ADC Data Register Bit 0
+                 .equ	ADC1	= 1	; ADC Data Register Bit 1
+                 .equ	ADC2	= 2	; ADC Data Register Bit 2
+                 .equ	ADC3	= 3	; ADC Data Register Bit 3
+                 .equ	ADC4	= 4	; ADC Data Register Bit 4
+                 .equ	ADC5	= 5	; ADC Data Register Bit 5
+                 .equ	ADC6	= 6	; ADC Data Register Bit 6
+                 .equ	ADC7	= 7	; ADC Data Register Bit 7
+                 
+                 ; DIDR0 - Digital Input Disable Register
+                 .equ	ADC0D	= 0	; 
+                 .equ	ADC1D	= 1	; 
+                 .equ	ADC2D	= 2	; 
+                 .equ	ADC3D	= 3	; 
+                 
+                 
+                 ; ***** ANALOG_COMPARATOR ************
+                 ; ACSR - Analog Comparator Control And Status Register
+                 .equ	ACIS0	= 0	; Analog Comparator Interrupt Mode Select bit 0
+                 .equ	ACIS1	= 1	; Analog Comparator Interrupt Mode Select bit 1
+                 .equ	ACIC	= 2	; Analog Comparator Input Capture  Enable
+                 .equ	ACIE	= 3	; Analog Comparator Interrupt Enable
+                 .equ	ACI	= 4	; Analog Comparator Interrupt Flag
+                 .equ	ACO	= 5	; Analog Compare Output
+                 .equ	ACD	= 7	; Analog Comparator Disable
+                 
+                 ; DIDR0 - 
+                 .equ	AIN0D	= 0	; AIN0 Digital Input Disable
+                 .equ	AIN1D	= 1	; AIN1 Digital Input Disable
+                 
+                 
+                 ; ***** CPU **************************
+                 ; CCP - Configuration Change Protection
+                 .equ	CCP0	= 0	; Configuration Change Protection bit 0
+                 .equ	CCP1	= 1	; Configuration Change Protection bit 1
+                 .equ	CCP2	= 2	; Configuration Change Protection bit 2
+                 .equ	CCP3	= 3	; Configuration Change Protection bit 3
+                 .equ	CCP4	= 4	; Configuration Change Protection bit 4
+                 .equ	CCP5	= 5	; Configuration Change Protection bit 5
+                 .equ	CCP6	= 6	; Configuration Change Protection bit 6
+                 .equ	CCP7	= 7	; Configuration Change Protection bit 7
+                 
+                 ; SREG - Status Register
+                 .equ	SREG_C	= 0	; Carry Flag
+                 .equ	SREG_Z	= 1	; Zero Flag
+                 .equ	SREG_N	= 2	; Negative Flag
+                 .equ	SREG_V	= 3	; Two's Complement Overflow Flag
+                 .equ	SREG_S	= 4	; Sign Bit
+                 .equ	SREG_H	= 5	; Half Carry Flag
+                 .equ	SREG_T	= 6	; Bit Copy Storage
+                 .equ	SREG_I	= 7	; Global Interrupt Enable
+                 
+                 ; CLKMSR - Clock Main Settings Register
+                 .equ	CLKMS0	= 0	; Clock Main Select Bit 0
+                 .equ	CLKMS1	= 1	; Clock Main Select Bit 1
+                 
+                 ; CLKPSR - Clock Prescale Register
+                 .equ	CLKPS0	= 0	; Clock Prescaler Select Bit 0
+                 .equ	CLKPS1	= 1	; Clock Prescaler Select Bit 1
+                 .equ	CLKPS2	= 2	; Clock Prescaler Select Bit 2
+                 .equ	CLKPS3	= 3	; Clock Prescaler Select Bit 3
+                 
+                 ; OSCCAL - Oscillator Calibration Value
+                 .equ	CAL0	= 0	; Oscillator Calibration Value Bit0
+                 .equ	CAL1	= 1	; Oscillator Calibration Value Bit1
+                 .equ	CAL2	= 2	; Oscillator Calibration Value Bit2
+                 .equ	CAL3	= 3	; Oscillator Calibration Value Bit3
+                 .equ	CAL4	= 4	; Oscillator Calibration Value Bit4
+                 .equ	CAL5	= 5	; Oscillator Calibration Value Bit5
+                 .equ	CAL6	= 6	; Oscillator Calibration Value Bit6
+                 .equ	CAL7	= 7	; Oscillator Calibration Value Bit7
+                 
+                 ; SMCR - Sleep Mode Control Register
+                 .equ	SE	= 0	; Sleep Enable
+                 .equ	SM0	= 1	; Sleep Mode Select Bit 0
+                 .equ	SM1	= 2	; Sleep Mode Select Bit 1
+                 .equ	SM2	= 3	; Sleep Mode Select Bit 2
+                 
+                 ; PRR - Power Reduction Register
+                 .equ	PRTIM0	= 0	; Power Reduction Timer/Counter0
+                 .equ	PRADC	= 1	; Power Reduction ADC
+                 
+                 ; VLMCSR - Vcc Level Monitoring Control and Status Register
+                 .equ	VLM0	= 0	; Trigger Level of Voltage Level Monitor bit 0
+                 .equ	VLM1	= 1	; Trigger Level of Voltage Level Monitor bit 1
+                 .equ	VLM2	= 2	; Trigger Level of Voltage Level Monitor bit 2
+                 .equ	VLMIE	= 6	; VLM Interrupt Enable
+                 .equ	VLMF	= 7	; VLM Flag
+                 
+                 ; RSTFLR - Reset Flag Register
+                 .equ	PORF	= 0	; Power-on Reset Flag
+                 .equ	EXTRF	= 1	; External Reset Flag
+                 .equ	WDRF	= 3	; Watchdog Reset Flag
+                 
+                 ; NVMCSR - Non-Volatile Memory Control and Status Register
+                 .equ	NVMBSY	= 7	; Non-Volatile Memory Busy
+                 
+                 ; NVMCMD - Non-Volatile Memory Command
+                 .equ	NVMCMD0	= 0	; 
+                 .equ	NVMCMD1	= 1	; 
+                 .equ	NVMCMD2	= 2	; 
+                 .equ	NVMCMD3	= 3	; 
+                 .equ	NVMCMD4	= 4	; 
+                 .equ	NVMCMD5	= 5	; 
+                 
+                 
+                 ; ***** PORTB ************************
+                 ; PORTCR - Port Control Register
+                 .equ	BBMB	= 1	; Break-Before-Make Mode Enable
+                 
+                 ; PUEB - Pull-up Enable Control Register
+                 .equ	PUEB0	= 0	; 
+                 .equ	PUEB1	= 1	; 
+                 .equ	PUEB2	= 2	; 
+                 .equ	PUEB3	= 3	; 
+                 
+                 ; PORTB - Input Pins, Port B
+                 .equ	PORTB0	= 0	; 
+                 .equ	PB0	= 0	; For compatibility
+                 .equ	PORTB1	= 1	; 
+                 .equ	PB1	= 1	; For compatibility
+                 .equ	PORTB2	= 2	; 
+                 .equ	PB2	= 2	; For compatibility
+                 .equ	PORTB3	= 3	; 
+                 .equ	PB3	= 3	; For compatibility
+                 
+                 ; DDRB - Data Direction Register, Port B
+                 .equ	DDB0	= 0	; 
+                 .equ	DDB1	= 1	; 
+                 .equ	DDB2	= 2	; 
+                 .equ	DDB3	= 3	; 
+                 
+                 ; PINB - Port B Data register
+                 .equ	PINB0	= 0	; 
+                 .equ	PINB1	= 1	; 
+                 .equ	PINB2	= 2	; 
+                 .equ	PINB3	= 3	; 
+                 
+                 
+                 ; ***** EXTERNAL_INTERRUPT ***********
+                 ; EICRA - External Interrupt Control Register A
+                 .equ	ISC00	= 0	; Interrupt Sense Control 0 Bit 0
+                 .equ	ISC01	= 1	; Interrupt Sense Control 0 Bit 1
+                 
+                 ; EIMSK - External Interrupt Mask register
+                 .equ	INT0	= 0	; External Interrupt Request 0 Enable
+                 
+                 ; EIFR - External Interrupt Flag register
+                 .equ	INTF0	= 0	; External Interrupt Flag 0
+                 
+                 ; PCICR - Pin Change Interrupt Control Register
+                 .equ	PCIE0	= 0	; Pin Change Interrupt Enable 0
+                 
+                 ; PCIFR - Pin Change Interrupt Flag Register
+                 .equ	PCIF0	= 0	; Pin Change Interrupt Flag 0
+                 
+                 ; PCMSK - Pin Change Mask Register
+                 .equ	PCINT0	= 0	; Pin Change Enable Mask 0
+                 .equ	PCINT1	= 1	; Pin Change Enable Mask 1
+                 .equ	PCINT2	= 2	; Pin Change Enable Mask 2
+                 .equ	PCINT3	= 3	; Pin Change Enable Mask 3
+                 
+                 
+                 ; ***** TIMER_COUNTER_0 **************
+                 ; TCCR0A - Timer/Counter 0 Control Register A
+                 .equ	WGM00	= 0	; Waveform Generation Mode
+                 .equ	WGM01	= 1	; Waveform Generation Mode
+                 .equ	COM0B0	= 4	; Compare Output Mode for Channel B bit 0
+                 .equ	COM0B1	= 5	; Compare Output Mode for Channel B bit 1
+                 .equ	COM0A0	= 6	; Compare Output Mode for Channel A bit 0
+                 .equ	COM0A1	= 7	; Compare Output Mode for Channel A bit 1
+                 
+                 ; TCCR0B - Timer/Counter 0 Control Register B
+                 .equ	CS00	= 0	; Clock Select
+                 .equ	CS01	= 1	; Clock Select
+                 .equ	CS02	= 2	; Clock Select
+                 .equ	WGM02	= 3	; Waveform Generation Mode
+                 .equ	WGM03	= 4	; Waveform Generation Mode
+                 .equ	ICES0	= 6	; Input Capture Edge Select
+                 .equ	ICNC0	= 7	; Input Capture Noise Canceler
+                 
+                 ; TCCR0C - Timer/Counter 0 Control Register C
+                 .equ	FOC0B	= 6	; Force Output Compare for Channel B
+                 .equ	FOC0A	= 7	; Force Output Compare for Channel A
+                 
+                 ; TIMSK0 - Timer Interrupt Mask Register 0
+                 .equ	TOIE0	= 0	; Overflow Interrupt Enable
+                 .equ	OCIE0A	= 1	; Output Compare A Match Interrupt Enable
+                 .equ	OCIE0B	= 2	; Output Compare B Match Interrupt Enable
+                 .equ	ICIE0	= 5	; Input Capture Interrupt Enable
+                 
+                 ; TIFR0 - Overflow Interrupt Enable
+                 .equ	TOV0	= 0	; Timer Overflow Flag
+                 .equ	OCF0A	= 1	; Timer Output Compare Flag 0A
+                 .equ	OCF0B	= 2	; Timer Output Compare Flag 0B
+                 .equ	ICF0	= 5	; Input Capture Flag
+                 
+                 ; GTCCR - General Timer/Counter Control Register
+                 .equ	PSR	= 0	; Prescaler Reset
+                 .equ	TSM	= 7	; Timer Synchronization Mode
+                 
+                 
+                 ; ***** WATCHDOG *********************
+                 ; WDTCSR - Watchdog Timer Control and Status Register
+                 .equ	WDP0	= 0	; Watch Dog Timer Prescaler bit 0
+                 .equ	WDP1	= 1	; Watch Dog Timer Prescaler bit 1
+                 .equ	WDP2	= 2	; Watch Dog Timer Prescaler bit 2
+                 .equ	WDE	= 3	; Watch Dog Enable
+                 .equ	WDP3	= 5	; Watchdog Timer Prescaler Bit 3
+                 .equ	WDIE	= 6	; Watchdog Timer Interrupt Enable
+                 .equ	WDIF	= 7	; Watchdog Timer Interrupt Flag
+                 
+                 
+                 
+                 ; ***** LOCKSBITS ********************************************************
+                 .equ	LB1	= 0	; Lockbit
+                 .equ	LB2	= 1	; Lockbit
+                 
+                 
+                 ; ***** FUSES ************************************************************
+                 ; BYTE0 fuse bits
+                 .equ	RSTDISBL	= 0	; Disable external reset
+                 .equ	WDTON	= 1	; Watch dog timer always on
+                 .equ	CKOUT	= 2	; Output external clock
+                 
+                 
+                 
+                 ; ***** CPU REGISTER DEFINITIONS *****************************************
+                 .def	XH	= r27
+                 .def	XL	= r26
+                 .def	YH	= r29
+                 .def	YL	= r28
+                 .def	ZH	= r31
+                 .def	ZL	= r30
+                 
+                 
+                 
+                 ; ***** DATA MEMORY DECLARATIONS *****************************************
+                 .equ	FLASHEND	= 0x00ff	; Note: Word address
+                 .equ	IOEND	= 0x003f
+                 .equ	SRAM_START	= 0x0040
+                 .equ	SRAM_SIZE	= 32
+                 .equ	RAMEND	= 0x005f
+                 .equ	XRAMEND	= 0x0000
+                 .equ	E2END	= 0x0000
+                 .equ	EEPROMEND	= 0x0000
+                 
+                 ; ***** MEMORY MAPPED NVM ************************************************
+                 .equ	MAPPED_FLASH_START	= 0x4000
+                 .equ	MAPPED_LOCKBITS_0	= 0x3f00
+                 .equ	MAPPED_CONFIG_0	= 0x3f40
+                 .equ	MAPPED_CALIB_0	= 0x3f80
+                 .equ	MAPPED_SIGN_0	= 0x3fc0
+                 .equ	MAPPED_SIGN_1	= 0x3fc1
+                 .equ	MAPPED_SIGN_2	= 0x3fc2
+                 .equ	MAPPED_FLASH_SIZE	= 0x0200
+                 .equ	MAPPED_FLASH_END	= 0x41ff
+                 #pragma AVRPART MEMORY PROG_FLASH 512
+                 #pragma AVRPART MEMORY EEPROM 0
+                 #pragma AVRPART MEMORY INT_SRAM SIZE 32
+                 #pragma AVRPART MEMORY INT_SRAM START_ADDR 0x40
+                 
+                 
+                 
+                 ; ***** BOOTLOADER DECLARATIONS ******************************************
+                 .equ	PAGESIZE	= 16
+                 
+                 
+                 
+                 ; ***** INTERRUPT VECTORS ************************************************
+                 .equ	INT0addr	= 0x0001	; External Interrupt Request 0
+                 .equ	PCI0addr	= 0x0002	; Pin Change Interrupt Request 0
+                 .equ	ICP0addr	= 0x0003	; Timer/Counter0 Input Capture
+                 .equ	OVF0addr	= 0x0004	; Timer/Counter0 Overflow
+                 .equ	OC0Aaddr	= 0x0005	; Timer/Counter Compare Match A
+                 .equ	OC0Baddr	= 0x0006	; Timer/Counter Compare Match B
+                 .equ	ACIaddr	= 0x0007	; Analog Comparator
+                 .equ	WDTaddr	= 0x0008	; Watchdog Time-out
+                 .equ	VLMaddr	= 0x0009	; Vcc Voltage Level Monitor
+                 .equ	ADCCaddr	= 0x000a	; ADC Conversion Complete
+                 
+                 .equ	INT_VECTORS_SIZE	= 11	; size in words
+                 
+                 #pragma AVRPART CORE INSTRUCTIONS_NOT_SUPPORTED break
+                 
+                 #endif  /* _TN5DEF_INC_ */
+                 
+                 ; ***** END OF FILE ******************************************************
+                 
+                  * chibi_trigger.asm
+                  *
+                  *  Created: 12/11/2013 18:26:47
+                  *   Author: bunnie
+                  *  See file LICENSE for licensing details (LGPLv3)
+                  */ 
+                 
+                  .include "tn5def.inc"
+                 
+                 ;***** Created: 2011-02-09 12:04 ******* Source: ATtiny5.xml *************
+                 ;*************************************************************************
+                 ;* A P P L I C A T I O N   N O T E   F O R   T H E   A V R   F A M I L Y
+                 ;* 
+                 ;* Number            : AVR000
+                 ;* File Name         : "tn5def.inc"
+                 ;* Title             : Register/Bit Definitions for the ATtiny5
+                 ;* Date              : 2011-02-09
+                 ;* Version           : 2.35
+                 ;* Support E-mail    : avr@atmel.com
+                 ;* Target MCU        : ATtiny5
+                 ;* 
+                 ;* DESCRIPTION
+                 ;* When including this file in the assembly program file, all I/O register 
+                 ;* names and I/O register bit names appearing in the data book can be used.
+                 ;* In addition, the six registers forming the three data pointers X, Y and 
+                 ;* Z have been assigned names XL - ZH. Highest RAM address for Internal 
+                 ;* SRAM is also defined 
+                 ;* 
+                 ;* The Register names are represented by their hexadecimal address.
+                 ;* 
+                 ;* The Register Bit names are represented by their bit number (0-7).
+                 ;* 
+                 ;* Please observe the difference in using the bit names with instructions
+                 ;* such as "sbr"/"cbr" (set/clear bit in register) and "sbrs"/"sbrc"
+                 ;* (skip if bit in register set/cleared). The following example illustrates
+                 ;* this:
+                 ;* 
+                 ;* in    r16,PORTB             ;read PORTB latch
+                 ;* sbr   r16,(1<<PB6)+(1<<PB5) ;set PB6 and PB5 (use masks, not bit#)
+                 ;* out   PORTB,r16             ;output to PORTB
+                 ;* 
+                 ;* in    r16,TIFR              ;read the Timer Interrupt Flag Register
+                 ;* sbrc  r16,TOV0              ;test the overflow flag (use bit#)
+                 ;* rjmp  TOV0_is_set           ;jump if set
+                 ;* ...                         ;otherwise do something else
+                 ;*************************************************************************
+                 
+                 #ifndef _TN5DEF_INC_
+                 #endif  /* _TN5DEF_INC_ */
+                 
+                 ; ***** END OF FILE ******************************************************
+                 
+                 ; register allocations. Need to be a bit careful because of side effects in ISRs
+                 ; r16 ; upper thresh
+                 ; r17 ; lower thresh
+                  .def  ledTime  = r18  ; how much time left on the output assertion
+                  .def  temp = r19     		; also end-value arg for PWM value change
+                  .def  temp1 = r20
+                  .def  temp2 = r21    ; don't use in ISRs
+                  .def  adcval = r22
+                  .def  avgval = r23
+                  
+                  ; r26 XL  used to accumulate average value before dividing
+                  ; r27 XH
+                  ; r28 YL  pointer used to compute moving average
+                  ; r29 YH
+                  ; r30 ZL  pointer to current entry for circular buffer
+                  ; r31 ZH
+                  
+                 ;set some variables
+                  ;time1 and time2 set the value for the final loop in each delay
+                  .equ  time1   = 180 ;between 0 and 255
+                  .equ  timef   = 120
+                  .equ  time2   = 2
+                  .equ  led     = 0 ;LED at PB0
+                  .equ  thresh  = 46  ; +/- threshold value
+                 
+                  .equ  BUFSTART = $40  ; bottom of SRAM
+                 
+                  // interrupt vectors
+000000 c029       rjmp RESET  ;go and set up PORTB as an output
+000001 c009       rjmp INT0_HANDLER
+000002 c008       rjmp PCINT0_HANDLER
+000003 c007       rjmp TIM0_CAPT
+000004 c007       rjmp TIM0_OVF
+000005 c005       rjmp TIM0_COMPA
+000006 c004       rjmp TIM0_COMPB
+000007 c003       rjmp ANA_COMP
+000008 c002       rjmp WDT
+000009 c001       rjmp VLM
+00000a c000       rjmp ADC_HANDLER
+                 
+                  // most handlers are do-nothing
+                 INT0_HANDLER:
+                 PCINT0_HANDLER:
+                 TIM0_CAPT:
+                 TIM0_COMPA:
+                 TIM0_COMPB:
+                 ANA_COMP:
+                 WDT:
+                 VLM:
+                 ADC_HANDLER:
+00000b 9518       reti  ; just return from an interrupt here
+                 
+                 ;;;;;;;; handle timer firing. 
+                 ;; The timer is set up to trigger at ~15 Hz
+                 ;; We add a sample to a circular buffer for averaging whenever the timer
+                 ;; fires. We are totally counting on there being a tight main loop polling
+                 ;; the ADC and updating "adcval" (r22) with the latest ADC value. 
+                 ;;
+                 ;; This routine also handles updating the LED output. If the LED counter value
+                 ;; is greater than zero, assert the LED output and decrement by one. This 
+                 ;; creates a "pulse-stretching" behavior, sort of.
+                 ;;
+                 ;; wheee life in 512 bytes of code....
+                 TIM0_OVF:
+                  ; store a sample in the 16-byte deep circular buffer
+00000c 9361       st     Z+, adcval  ; adcval always has the most recent conversion value, captured in a tight main loop
+00000d 74ef       andi   ZL, $4F     ; compute Z %= 16
+00000e 27ff       clr    ZH
+                 
+                  ; now check and see if we should assert the output for the LED
+00000f 3020       cpi    ledTime, $00
+000010 f019       breq   clearLED
+000011 9810       cbi    PORTB, led ; LED on
+000012 952a       dec    ledTime
+000013 c001       rjmp   onwards
+                 clearLED:
+000014 9a10       sbi    PORTB, led ;LED off - cbi/sbi swapped for N-FET switching (ie.LED is OFF when FET is ON)
+                 
+                 onwards:
+                  ; now compute the average of the circular buffer and update value in avgval
+000015 e4c0       ldi    YL, $40  ; $40 is bottom of RAM
+000016 27dd       clr    YH
+000017 27aa       clr    XL
+000018 27bb       clr    XH
+000019 2744       clr    temp1  ; just needs to be zero
+                 
+                 avg_sum:
+00001a 9139       ld     temp, Y+
+00001b 0fa3       add    XL, temp
+00001c 1fb4       adc    XH, temp1  ; temp1 is always zero, but we're just trying to catch the carry
+                 
+00001d 35c0       cpi    YL, $50
+00001e f7d9       brne   avg_sum
+                  
+                  ; now divide X by 16 by shifting right by 4
+00001f 95a6       lsr    XL
+000020 95a6       lsr    XL
+000021 95a6       lsr    XL
+000022 95a6       lsr    XL  ; XL >> 4
+                 
+000023 0fbb       lsl    XH
+000024 0fbb       lsl    XH
+000025 0fbb       lsl    XH
+000026 0fbb       lsl    XH  ; XH << 4
+                 
+000027 2bab       or     XL, XH  ; XL = XH | XL
+000028 2f7a       mov    avgval, XL
+000029 9518       reti
+                 
+                 ;;;;;; Main entry point 
+                  ; algorithm -- determine a baseline average over the past 10 seconds
+                  ; then if deviation beyond baseline (+/- delta) fire trigger
+                 
+                 RESET: ;set PB2 as an output in the Data Direction Register for PORTB
+00002a e000       ldi   r16, high(RAMEND)  ; set up stack pointer to top of RAM
+00002b bf0e       out   SPH, r16
+00002c e50f       ldi   r16, low(RAMEND)
+00002d bf0d       out   SPL, R16
+                 
+00002e e4e0       ldi   ZL, $40  ; set the circular buffer to bottom of RAM, $40
+00002f 27ff       clr   ZH
+                 
+000030 2722       clr   ledTime  ; clear the LED output timer
+                 
+000031 e030       ldi   temp, $0
+000032 bd37       out   OCR0AH, temp
+                 
+000033 b933       out   PUEB, temp ; clear all pull-ups
+                 
+000034 e031       ldi   temp, $01
+000035 b931       out   DDRB, temp ; pin 0 is output, all others as input
+                 
+000036 b337       in 	temp, DIDR0	; Load Digital Input Disable Register value to temporary
+000037 6034       sbr	temp, (1<<ADC2D)	; Disable Digital Inputs on ADC Channel 2
+000038 bb37       out	DIDR0, temp	; Store it back to DIDR
+                 
+000039 e032       ldi	temp,$02	
+00003a bb3b       out	ADMUX,temp	; Monitor PB2 (ADC2)
+                 
+00003b e833       ldi	temp,$83	; Enable ADC with Clock prescaled by 8
+00003c bb3d       out	ADCSRA, temp;If Clock speed is 1MHz, then ADC clock = 1MHz/8 = 125kHz (must be 50-200kHz)
+                  ; converts in about 100us at this clock rate ~10kHz
+                 
+                  ; initialize timer to set sampling interval
+00003d e030       ldi	temp, $00
+00003e bd3e       out	TCCR0A, temp
+                 
+00003f e031       ldi    temp, $01  ; interrupt on timer overflow
+000040 bd3b       out    TIMSK0, temp
+                 
+                  ; 1 mhz / 65536 = 15.2 hz, 15.2hz / 1 = 15.2 Hz = cs0[2:0] = 001
+000041 e031       ldi    temp, $01
+000042 bd3d       out    TCCR0B, temp ; sets timer in motion
+                 
+000043 9478       sei   ; enable interrupts: at this point, the timer OVF callback can side-effect regsiters
+                 
+                 forever:  ; sample the ADC as fast as we can, cherry-pick values to compute moving averages based on timer interrupts
+000044 b35d       in 	temp2, ADCSRA
+000045 6450       sbr	temp2, (1<<ADSC)
+000046 bb5d       out	ADCSRA, temp2; Start the ADC Conversion
+                 poll:	
+000047 b35d       in 	temp2, ADCSRA ; temp2 is ISR-safe by convention
+000048 fd56       sbrc	temp2, 6
+000049 cffd       rjmp 	poll		;Wait till ADC Conversion is complete
+                 
+00004a b369       in     adcval, ADCL	;Load ADC Conversion result to temp
+                 
+                  ; now do a comparison against the moving average and decide if we need to trigger an output, or not
+                  ; do a saturating add/subtract to compute +/- bounds on average
+00004b e20e       ldi    r16, thresh
+00004c 0f07       add    r16, avgval
+00004d f408       brcc   skip_satpos
+00004e ef0f       ldi    r16, $FF ; carry was set
+                 skip_satpos:
+00004f 2f17       mov    r17, avgval
+000050 9488       clc
+000051 421e       sbci   r17, thresh
+000052 f408       brcc   skip_satneg
+000053 e010       ldi    r17, $00 ; borrow was set
+                 skip_satneg:
+                  ; r16 has the upper thresh, r17 has the lower thresh
+000054 1706       cp     r16, adcval  ; is it larger or equal to the upper threshold?
+000055 f020       brlo   setOutput    ; branch if r16 < adcval
+000056 1761       cp     adcval, r17  ; is it less than or equal to the lower threshold?
+000057 f010       brlo   setOutput
+000058 f009       breq   setOutput
+                 
+000059 cfea       rjmp   forever  ; maybe this should be a sleep.
+                 
+                 setOutput:
+                  ; set the output timer
+00005a e120       ldi    ledTime, 16  ; 15.2 Hz update loop on LED counter, so about 1 seconds = 16 iterations
+00005b cfe8       rjmp   forever
+
+
+RESOURCE USE INFORMATION
+------------------------
+
+Notice:
+The register and instruction counts are symbol table hit counts,
+and hence implicitly used resources are not counted, eg, the
+'lpm' instruction without operands implicitly uses r0 and z,
+none of which are counted.
+
+x,y,z are separate entities in the symbol table and are
+counted separately from r26..r31 here.
+
+.dseg memory usage only counts static data declared with .byte
+
+"ATtiny5" register use summary:
+r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
+r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 r13:   0 r14:   0 r15:   0 
+r16:   8 r17:   4 r18:   4 r19:  20 r20:   2 r21:   5 r22:   4 r23:   3 
+r24:   0 r25:   0 r26:   8 r27:   7 r28:   2 r29:   1 r30:   2 r31:   2 
+x  :   0 y  :   1 z  :   1 
+Registers used: 16 out of 35 (45.7%)
+
+"ATtiny5" instruction use summary:
+.lds.l:   0 .sts.l:   0 adc   :   1 add   :   2 and   :   0 andi  :   1 
+asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 brcc  :   2 
+brcs  :   0 breq  :   2 brge  :   0 brhc  :   0 brhs  :   0 brid  :   0 
+brie  :   0 brlo  :   2 brlt  :   0 brmi  :   0 brne  :   1 brpl  :   0 
+brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 brvs  :   0 bset  :   0 
+bst   :   0 cbi   :   1 cbr   :   0 clc   :   1 clh   :   0 cli   :   0 
+cln   :   0 clr   :   7 cls   :   0 clt   :   0 clv   :   0 clz   :   0 
+com   :   0 cp    :   2 cpc   :   0 cpi   :   2 cpse  :   0 dec   :   1 
+eor   :   0 icall :   0 ijmp  :   0 in    :   4 inc   :   0 ld    :   1 
+ldd   :   0 ldi   :  15 lds   :   0 lsl   :   4 lsr   :   4 mov   :   2 
+neg   :   0 nop   :   0 or    :   1 ori   :   0 out   :  12 pop   :   0 
+push  :   0 rcall :   0 ret   :   0 reti  :   2 rjmp  :  15 rol   :   0 
+ror   :   0 sbc   :   0 sbci  :   1 sbi   :   1 sbic  :   0 sbis  :   0 
+sbr   :   2 sbrc  :   1 sbrs  :   0 sec   :   0 seh   :   0 sei   :   1 
+sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 sez   :   0 
+sleep :   0 st    :   1 std   :   0 sts   :   0 sub   :   0 subi  :   0 
+swap  :   0 tst   :   0 wdr   :   0 
+Instructions used: 29 out of 99 (29.3%)
+
+"ATtiny5" memory use summary [bytes]:
+Segment   Begin    End      Code   Data   Used    Size   Use%
+---------------------------------------------------------------
+[.cseg] 0x000000 0x0000b8    184      0    184     512  35.9%
+[.dseg] 0x000040 0x000060      0      0      0      32   0.0%
+[.eseg] 0x000000 0x000000      0      0      0       0      -
+
+Assembly complete, 0 errors, 0 warnings
