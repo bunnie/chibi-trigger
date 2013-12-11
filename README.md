@@ -28,3 +28,8 @@ In addition to doing bookkeeping on the average value, the timer
 also manages the LED output. It will decrement an LED counter
 every time the timer fires, and if the value is non-zero it lights
 up the LED. 
+
+
+Yes, this is all hand-coded AVR assembly. Yeach. But, that's
+all you can do with 512 bytes of code and 32 bytes of RAM. If
+I were in the 70's, this would be a cutting edge dissertation.
